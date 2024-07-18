@@ -1,12 +1,23 @@
 const { defineConfig } = require("cypress");
-const {downloadFile} = require('cypress-downloadfile/lib/addPlugin')
+const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 
 
 module.exports = defineConfig({
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'custom-title',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+  },
+
+
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      on('task', {downloadFile})
+      on('task', { downloadFile })
+      require('cypress-mochawesome-reporter/plugin')(on);
 
     },
   },
