@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import 'cypress-file-upload';
+
+Cypress.Commands.add('downloadFile', (url, directory, fileName) => {
+    return cy.getCookies().then((cookies) => {
+      return cy.task('downloadFile', {
+        url,
+        directory,
+        cookies,
+        fileName,
+      })
+    })
+  })
+  
+  
